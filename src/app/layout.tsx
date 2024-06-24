@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import SmoothScrolling from "./Compoennts/SmoothScroll";
+import StoreContextProvider from "@/Context/StoreContext";
+import Footer from "./Compoennts/Footer";
+import Navbar from "./Compoennts/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,8 +19,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html data-theme='light' lang="en">
+      <body className={inter.className}>
+        <StoreContextProvider>
+          <SmoothScrolling>
+            <Navbar />
+            {children}
+            <Footer />
+          </SmoothScrolling>
+        </StoreContextProvider>
+      </body>
     </html>
   );
 }

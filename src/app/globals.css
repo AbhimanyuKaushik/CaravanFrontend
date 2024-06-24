@@ -2,32 +2,344 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: Outfit,sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+body{
+  min-height: 100vh;
+}
+
+
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #e55a09;
+  border-radius: 2rem;
+}
+
+.banner {
+  background-image: url("https://images.indianexpress.com/2023/12/food.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  background-color: black;
+}
+
+.sidebar-links::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: white;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+.sidebar-links:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+.card {
+  transition: transform 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+/*Global btny styles*/
+.btny {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  outline: none;
+  vertical-align: middle;
+  text-decoration: none;
+  background: transparent;
+  font-size: 12px;
+  border: none;
+}
+/*Main button styles*/
+.btny {
+  position: relative;
+  height: fit-content;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  width: 100px;
+  height: 40px;
+  text-align: center;
+  text-transform: uppercase;
+  text-indent: 40px;
+  transition: 300ms;
+  font-weight: 500;
+  color: tomato;
+  background-color: white;
+  border-radius: 4rem;
+}
+
+.btny::before {
+  color: tomato;
+  content: "";
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  position: absolute;
+  left: 0;
+  display: block;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  z-index: -1;
+}
+
+.btny::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 17px;
+  transform: translate(-50%, -50%) rotate(45deg);
+  width: 12px;
+  height: 12px;
+  border-top: 2px solid #fff;
+  border-right: 2px solid #fff;
+  transition: 400ms;
+}
+
+.btny:hover {
+  text-indent: 15px;
+  color: white;
+  background-color: #e55a09;
+  border-radius: 4rem;
+  font-weight: 600;
+}
+.btny:active {
+  scale: 0.95;
+}
+
+.btny:hover::before {
+  width: 100%;
+}
+
+.btny:hover::after {
+  left: calc(100% - 25px);
+}
+
+.login-popup-container{
+  width: max(23vw,330px);
+  gap: 25px;
+  padding: 25px 30px;
+  font-size: 14px;
+  border-radius: 8px;
+  animation: fadeIn 0.5;
+}
+
+.menu-text{
+  max-width: 60%;
+  color: #808080;
+}
+
+.menu p{
+  font-size: max(1.4vw,16px);
+}
+
+.hr{
+  margin: 10px 0px;
+  height: 2px;
+  background-color: #e2e2e2;
+  border: none;
+}
+
+.menu .active{
+  border: 4px solid tomato;
+  padding: 2px;
+}
+
+.menu-items-image{
+  width: 7.5vw;
+  min-width: 80px;
+  border-radius: 50%;
+  transition: 0.2s;
+}
+
+.menu-list::-webkit-scrollbar{
+  display: none;
+}
+
+.food-item{
+  width: 100%;
+  margin: auto;
+  border-radius: 15px;
+  box-shadow: 0px 0px 10px #00000015;
+  transition: 0.3s;
+  animation: fadeIn 1s;
+}
+
+.food-item-image{
+  width: 100%;
+  border-radius: 15px 15px 0px 0px;
+}
+
+.item-name{
+  font-family: 20px;
+  font-weight: 600;
+}
+
+.food-item-price{
+  color: tomato;
+  font-size: 22px;
+  font-weight: 500;
+  margin: 10px 0px;
+}
+
+.footer{
+  padding: 20px 8vw;
+}
+
+.footer-content{
+  grid-template-columns: 2fr 1fr 1fr;
+}
+
+.app-download{
+  font-weight: 500;
+}
+
+.cart-items-title{
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 1fr 1fr 1fr 0.5fr;
+  color: grey;
+  align-items: center;
+  font-size: max(1vw,12px);
+}
+
+.cart-items-item{
+  margin: 10px 0px;
+  color: black;
+}
+
+
+.cart .hr{
+  height: 1px;
+  background-color: #e2e2e2;
+  border: none;
+}
+
+.cart-total-details{
+  display: flex;
+  justify-content: space-between;
+  color: #555;
+}
+
+.cart-total .hr{
+  margin: 10px 0px;
+}
+
+.place-order-left input{
+  margin-bottom: 15px;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #c5c5c5;
+  border-radius: 4px;
+  outline-color: tomato;
+}
+
+.place-order-left .multi-field{
+  display: flex;
+  gap: 10px;
+}
+
+.navbar .active{
+  padding-bottom: 2px;
+  border-bottom: 2px solid white;
+}
+
+.navbar li{
+  cursor: pointer;
+  scroll-behavior: smooth;
+}
+
+.nav-profile-dropdown{
+  position: absolute;
+  display: none;
+  right: 0;
+  z-index: 1;
+}
+
+.navbar-profile:hover .nav-profile-dropdown{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #fff2ef;
+  padding: 12px 25px;
+  border-radius: 4px;
+  border: 1px solid tomato;
+  outline: 2px solid white;
+}
+
+.nav-profile-dropdown li{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.nav-profile-dropdown li:hover{
+  color: tomato;
+}
+
+.logo{
+  font-family: Order,sans-serif;
+}
+
+@media (max-width:750px) {
+  .cart-bottom{
+    flex-direction: column-reverse;
+  }
+  .cart-promocode{
+    justify-content: start; 
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+@keyframes fadeIn{
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+@font-face {
+  font-family: "Header";
+  src: url("../../public/Header.otf");
+}
+
+.header {
+  font-family: "Header";
+  font-size: 10rem;
+}
+
+@font-face {
+  font-family: "Order";
+  src: url("../../public/Order.otf");
+}
+
+.order {
+  font-family: "Order";
 }
