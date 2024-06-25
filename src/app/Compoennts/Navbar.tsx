@@ -46,7 +46,7 @@ function Navbar() {
                     <div className='search'>
                         <NextLink href='/Cart'>
                             <ShoppingBagIcon fontSize='large' className='text-[tomato] mb-2 cursor-pointer' />
-                            <div className={getTotalCartAmount() > 0 ? "dot absolute w-[10px] h-[10px] bg-[tomato] rounded-full top-[5px] right-[113px]" : ""}></div>
+                            <div className={getTotalCartAmount() > 0 ? "dot absolute w-[10px] h-[10px] bg-[tomato] rounded-full top-[6px] right-[175px]" : ""}></div>
                         </NextLink>
                     </div>
                     {!token ? <button className="btny" onClick={handleSignInClick}>sign in</button>

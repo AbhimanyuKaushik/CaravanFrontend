@@ -1,5 +1,6 @@
 'use client'
 import React from 'react';
+// import SabpaisaPaymentGateway from './SabpaisaPaymentGateway';
 import Image from 'next/image';
 import '../globals.css'
 import Gallery from './Gallery';
