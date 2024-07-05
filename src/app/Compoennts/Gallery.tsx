@@ -5,8 +5,8 @@ import React from 'react'
 
 function Gallery() {
   return (
-    <div className='h-screen w-full flex justify-center items-center'>
-      <div className='grid grid-cols-10 grid-rows-5 gap-4 h-full w-full p-10 px-40'>
+    <div className='image-container h-screen w-full flex justify-center items-center'>
+      <div className='grid-cont grid grid-cols-10 grid-rows-5 gap-4 h-full w-full p-10 px-40'>
         <div className='col-span-4 row-span-4 rounded-3xl flex justify-center items-center bg-indigo-300'>
           <video
             src='https://videos.pexels.com/video-files/11571662/11571662-sd_360_640_25fps.mp4'

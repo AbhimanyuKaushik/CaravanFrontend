@@ -14,7 +14,7 @@ const ExploreMenu: React.FC<ExploreMenuProps> = ({ category, setCategory }) => {
         <div id='explore-menu' className='explore flex flex-col h-96 gap-[50px] w-full px-32'>
             <h1 className='text-4xl text-[#262626] font-sans font-semibold'>Explore our menu</h1>
             <p className='menu-text'>Choose from a diverse menu featuring a delectable array of dishes. Our mission is to satisfy your cravings and elevate your dining experience, one delicious meal at a time.</p>
-            <div className='flex justify-between items-center gap-[30px] text-center'>
+            <div className='icon-menu flex justify-between items-center gap-[30px] text-center overflow-hidden py-[6rem] overflow-x-scroll'>
                 {menu_list.map((item, index) => {
                     return (
                         <div 

@@ -28,8 +28,8 @@ function Navbar() {
     return (
         <>
             {showLogin && <Login setShowLogin={setShowLogin} />}
-            <div className='navbar bg-white px-10 flex justify-between items-center'>
-                <p className='logo font-semibold cursor-pointer text-3xl ml-40'>LOGO</p>
+            <div className='navbar border w-full bg-white px-10 flex justify-between items-center'>
+                <p className='logo font-[Header] font-[500] cursor-pointer text-3xl ml-40'>LOGO</p>
                 <ul className='navbar-menu items-center flex flex-row list-none gap-[60px] text-[tomato] font-medium text-[30px]'>
                     <NextLink href='/'>
                         <li onClick={() => setMenu("home")} className={menu === "home" ? "active" : ""}>home</li>
@@ -42,11 +42,11 @@ function Navbar() {
                     </ScrollLink>
                     <li onClick={() => setMenu("contact-us")} className={menu === "contact-us" ? "active" : ""}>contact us</li>
                 </ul>
-                <div className='navbar-right flex items-center gap-[40px]'>
+                <div className='navbar-right w-[270px] max-w-fit flex flex-row mr-28 gap-[40px]'>
                     <div className='search'>
                         <NextLink href='/Cart'>
-                            <ShoppingBagIcon fontSize='large' className='text-[tomato] mb-2 cursor-pointer' />
-                            <div className={getTotalCartAmount() > 0 ? "dot absolute w-[10px] h-[10px] bg-[tomato] rounded-full top-[6px] right-[175px]" : ""}></div>
+                            <ShoppingBagIcon fontSize='medium' className='text-[tomato] mb-2 cursor-pointer' />
+                            <div className={getTotalCartAmount() > 0 ? "dot relative w-[10px] h-[10px] bg-[tomato] rounded-full top-[-40px] right-[-24px]" : ""}></div>
                         </NextLink>
                     </div>
                     {!token ? <button className="btny" onClick={handleSignInClick}>sign in</button>

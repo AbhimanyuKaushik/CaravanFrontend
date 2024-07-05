@@ -307,15 +307,6 @@ body{
   font-family: Order,sans-serif;
 }
 
-@media (max-width:750px) {
-  .cart-bottom{
-    flex-direction: column-reverse;
-  }
-  .cart-promocode{
-    justify-content: start; 
-  }
-}
-
 @keyframes fadeIn{
   0%{
     opacity: 0;
