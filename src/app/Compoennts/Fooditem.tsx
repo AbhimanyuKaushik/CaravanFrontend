@@ -38,7 +38,7 @@ function Fooditem({ id, name, price, description, image }: FooditemProps) {
                 {!cartItems[id] ? (
                     // Display add icon if item not in cart
                     <Image
-                        className='w-[35px] absolute bottom-[15px] right-[15px] rounded-[50%]'
+                        className='w-[35px] cursor-pointer absolute bottom-[15px] right-[15px] rounded-[50%]'
                         onClick={() => addToCart(id)}
                         src={assets.add_icon_white}
                         alt='Add icon'
@@ -47,14 +47,14 @@ function Fooditem({ id, name, price, description, image }: FooditemProps) {
                     // Display item count and controls if item in cart
                     <div className='absolute bottom-[15px] right-[15px] flex items-center gap-[10px] p-[6px] rounded-[50px] bg-white'>
                         <Image
-                            className='w-[30px]'
+                            className='w-[30px] cursor-pointer'
                             onClick={() => removeFromCart(id)}
                             src={assets.remove_icon_red}
                             alt='Remove icon'
                         />
                         <p>{cartItems[id]}</p>
                         <Image
-                            className='w-[30px]'
+                            className='w-[30px] cursor-pointer'
                             onClick={() => addToCart(id)}
                             src={assets.add_icon_green}
                             alt='Add icon'
