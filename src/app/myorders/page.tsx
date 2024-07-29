@@ -42,7 +42,6 @@ function Page() {
             >
               <Image src={assets.parcel_icon} alt='Parcel_icon' width={60} height={60} />
               <p>
-                // hehehehe
                 {order.items
                   .map((item: { name: string; quantity: string; }) => `${item.name}x${item.quantity}`)
                   .join(', ')}
