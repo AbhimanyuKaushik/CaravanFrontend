@@ -307,6 +307,12 @@ body{
   font-family: Order,sans-serif;
 }
 
+.my-orders-order{
+  display: grid;
+  grid-template-columns: 0.5fr 2fr 1fr 1fr 2fr 1fr;
+  padding: 10px 20px;
+}
+
 @keyframes fadeIn{
   0%{
     opacity: 0;

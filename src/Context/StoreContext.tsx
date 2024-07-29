@@ -14,9 +14,13 @@ interface FoodItem {
 
 interface StoreContextType {
   food_list: FoodItem[];
-  cartItems: Record<string, number>; // Object mapping item ids to quantities
+  cartItems: Record<string, number>;
   addToCart: (itemId: string) => void;
   removeFromCart: (itemId: string) => void;
+  getTotalCartAmount: () => number;
+  url: string;
+  token: string;
+  setToken: (token: string) => void;
 }
 
 export const StoreContext = createContext<StoreContextType | undefined>(undefined);
@@ -27,9 +31,9 @@ interface StoreContextProviderProps {
 
 const StoreContextProvider = ({ children }: StoreContextProviderProps) => {
   const [cartItems, setCartItems] = useState<Record<string, number>>({});
+  const [food_list, setFoodList] = useState<FoodItem[]>([]);
+  const [token, setToken] = useState<string>('');
   const url = "http://localhost:4000";
-  const [token,setToken] = useState("");
-  const [food_list,setFoodList] = useState([])
 
   const addToCart = async (itemId: string) => {
     setCartItems(prev => ({
@@ -37,18 +41,34 @@ const StoreContextProvider = ({ children }: StoreContextProviderProps) => {
       [itemId]: (prev[itemId] || 0) + 1
     }));
     if (token) {
-      await axios.post(url+"/api/cart/add",{itemId},{headers:{token}})
+      try {
+        await axios.post(
+          url + "/api/cart/add",
+          { itemId },
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+      } catch (error) {
+        console.error('Error adding to cart:', error.response?.data || error.message);
+      }
     }
   };
 
-  const removeFromCart = async(itemId: string) => {
+  const removeFromCart = async (itemId: string) => {
     if (cartItems[itemId] && cartItems[itemId] > 0) {
       setCartItems(prev => ({
         ...prev,
         [itemId]: prev[itemId] - 1
       }));
       if (token) {
-        await axios.post(url+"/api/cart/remove",{itemId},{headers:{token}});
+        try {
+          await axios.post(
+            url + "/api/cart/remove",
+            { itemId },
+            { headers: { Authorization: `Bearer ${token}` } }
+          );
+        } catch (error) {
+          console.error('Error removing from cart:', error.response?.data || error.message);
+        }
       }
     }
   };
@@ -57,35 +77,52 @@ const StoreContextProvider = ({ children }: StoreContextProviderProps) => {
     let totalAmount = 0;
     for (const item in cartItems) {
       if (cartItems[item] > 0) {
-
-        let itemInfo = food_list.find((product) => product._id === item);
-        totalAmount += itemInfo.price * cartItems[item];
+        const itemInfo = food_list.find(product => product._id === item);
+        if (itemInfo) {
+          totalAmount += itemInfo.price * cartItems[item];
+        }
       }
     }
     return totalAmount;
-  }
+  };
 
-  const fetchFoodList = async()=>{
-    const response = await axios.get(url+"/api/food/list");
-    setFoodList(response.data.data)
-  }
+  const fetchFoodList = async () => {
+    try {
+      const response = await axios.get(
+        url + "/api/food/list",
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      setFoodList(response.data.data || []);
+    } catch (error) {
+      console.error("Failed to fetch food list:", error.response?.data || error.message);
+    }
+  };
 
-  const loadCartData = async (token: any)=>{
-    const response = await axios.post(url+"/api/cart/get",{},{headers:{token}});
-    setCartItems(response.data.cartData);
-  }
+  const loadCartData = async (token: string) => {
+    try {
+      const response = await axios.post(
+        url + "/api/cart/get",
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      setCartItems(response.data.cartData || {});
+    } catch (error) {
+      console.error("Failed to load cart data:", error.response?.data || error.message);
+    }
+  };
 
-  useEffect(()=>{
-
+  useEffect(() => {
     async function loadData() {
-      await fetchFoodList();
-      if (localStorage.getItem("token")) {
-        setToken(localStorage.getItem("token"));
-        await loadCartData(localStorage.getItem("token"));
+      const storedToken = localStorage.getItem("token") || '';
+      console.log('Stored token:', storedToken); // Debug line
+      setToken(storedToken);
+      if (storedToken) {
+        await fetchFoodList();
+        await loadCartData(storedToken);
       }
     }
     loadData();
-  },[])
+  }, []);
 
   const state: StoreContextType = {
     food_list,

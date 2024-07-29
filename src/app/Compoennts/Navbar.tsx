@@ -15,8 +15,8 @@ function Navbar() {
     const [menu, setMenu] = useState('home');
     const [showLogin, setShowLogin] = useState(false);
     const { getTotalCartAmount, token, setToken } = useContext(StoreContext);
-    
-    const logout = () =>{
+
+    const logout = () => {
         localStorage.removeItem("token");
         setToken("");
         window.location.href = '/';
@@ -45,17 +45,19 @@ function Navbar() {
                 <div className='navbar-right w-[270px] max-w-fit flex flex-row mr-28 gap-[40px]'>
                     <div className='search'>
                         <NextLink href='/Cart'>
-                            <ShoppingBagIcon fontSize='medium' className='text-[tomato] mb-2 cursor-pointer' />
-                            <div className={getTotalCartAmount() > 0 ? "dot relative w-[10px] h-[10px] bg-[tomato] rounded-full top-[-40px] right-[-24px]" : ""}></div>
+                            <ShoppingBagIcon fontSize='medium' className='text-[tomato] cursor-pointer' />
+                            <div className={getTotalCartAmount() > 0 ? "dot relative w-[8px] h-[8px] bg-[tomato] rounded-full top-[-30px] right-[-24px]" : ""}></div>
                         </NextLink>
                     </div>
                     {!token ? <button className="btny" onClick={handleSignInClick}>sign in</button>
                         : <div className='navbar-profile relative'>
-                            <PersonIcon className='mb-1 cursor-pointer' fontSize='large' sx={{ color: 'tomato' }}/>
+                            <PersonIcon className='mb-1 cursor-pointer' fontSize='large' sx={{ color: 'tomato' }} />
                             <ul className='nav-profile-dropdown'>
-                                <li><Image src={assets.bag_icon} alt=''/><p>Orders</p></li>
-                                <hr/>
-                                <li onClick={logout}><Image src={assets.logout_icon} alt=''/><p>Logout</p></li>
+                                <NextLink href='/myorders'>
+                                    <li><Image src={assets.bag_icon} alt='' /><p>Orders</p></li>
+                                </NextLink>
+                                <hr />
+                                <li onClick={logout}><Image src={assets.logout_icon} alt='' /><p>Logout</p></li>
                             </ul>
                         </div>}
                 </div>

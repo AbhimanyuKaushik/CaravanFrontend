@@ -190,7 +190,7 @@ export function PlaceholdersAndVanishInput({
         )}
       />
 
-      <button
+      {/* <button
         disabled={!value}
         type="submit"
         className="absolute right-2 top-1/2 z-50 -translate-y-1/2 h-8 w-8 rounded-full disabled:bg-gray-100 bg-black dark:bg-zinc-900 dark:disabled:bg-zinc-800 transition duration-200 flex items-center justify-center"
@@ -225,7 +225,7 @@ export function PlaceholdersAndVanishInput({
           <path d="M13 18l6 -6" />
           <path d="M13 6l6 6" />
         </motion.svg>
-      </button>
+      </button> */}
 
       <div className="absolute inset-0 flex items-center rounded-full pointer-events-none">
         <AnimatePresence mode="wait">
