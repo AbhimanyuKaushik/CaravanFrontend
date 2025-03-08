@@ -5,7 +5,7 @@ import { StoreContext } from '@/Context/StoreContext'
 import Image from 'next/image'
 import Link from 'next/link'
 
-function page() {
+function CartPage() {
   const { url,cartItems, food_list, removeFromCart, getTotalCartAmount } = useContext(StoreContext)
 
 
@@ -86,4 +86,4 @@ function page() {
   )
 }
 
-export default page
+export default CartPage

@@ -2,6 +2,7 @@
 import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import { StoreContext } from '@/Context/StoreContext';
+import Image from 'next/image';
 
 type LoginProps = {
     setShowLogin: React.Dispatch<React.SetStateAction<boolean>>;
@@ -59,7 +60,7 @@ const Login: React.FC<LoginProps> = ({ setShowLogin }) => {
                     <h2>
                         {currState}
                     </h2>
-                    <img className='w-[16px] cursor-pointer' src='/cross_icon.png' onClick={handleClose} alt="Close"></img>
+                    <Image className='w-[16px] cursor-pointer' src='/cross_icon.png' width={500} height={500} onClick={handleClose} alt="Close"></Image>
                 </div>
                 <div className='login-popup-inputs flex flex-col gap-[20px]'>
                     {currState === 'Login' ? null : <input className='border-[2px] p-[10px] rounded-lg' name='name' onChange={onChangeHandler} value={data.name} type='text' placeholder='Your Name' required />}

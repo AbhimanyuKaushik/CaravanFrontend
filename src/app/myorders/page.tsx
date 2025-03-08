@@ -28,7 +28,7 @@ function Page() {
     if (token) {
       fetchOrders();
     }
-  }, [token]);
+  }, [token, fetchOrders]);
 
   return (
     <div className='my-orders m-[50px]'>
