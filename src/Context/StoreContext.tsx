@@ -1,6 +1,6 @@
 'use client';
 import { createContext, ReactNode, useEffect, useState, useCallback } from 'react';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 
 interface FoodItem {
   _id: string;
@@ -46,8 +46,12 @@ const StoreContextProvider = ({ children }: StoreContextProviderProps) => {
           { itemId },
           { headers: { Authorization: `Bearer ${token}` } }
         );
-      } catch (error) {
-        console.error('Error adding to cart:', error.response?.data || error.message);
+      }  catch (error) {
+        if (error instanceof AxiosError) {
+          console.error('Error adding to cart:', error.response?.data || error.message);
+        } else {
+          console.error('An unexpected error occurred:', error);
+        }
       }
     }
   };
