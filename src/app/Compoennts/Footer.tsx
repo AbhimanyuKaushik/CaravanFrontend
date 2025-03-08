@@ -14,7 +14,7 @@ function Footer() {
                     <div className='font-[Header] text-7xl mt-10 text-orange-600'>
                         Caravan
                     </div>
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nam iste est et amet architecto! Facere est magnam doloremque tempora ex neque fugiat mollitia ratione magni quo! Totam, repellat, culpa ullam consequatur, molestiae odio incidunt aspernatur dolore fuga laboriosam temporibus sunt quas rem! Iusto exercitationem, non laudantium illo dignissimos error totam.</p>
+                    <p>Footer</p>
                     <div className='footer-social-icons flex flex-row gap-2'>
                         <InstagramIcon className='size-10' />
                         <FacebookIcon className='size-10' />

@@ -9,12 +9,12 @@ function Gallery() {
       <div className='grid-cont grid grid-cols-10 grid-rows-5 gap-4 h-full w-full p-10 px-40'>
         <div className='col-span-4 row-span-4 rounded-3xl flex justify-center items-center bg-indigo-300'>
           <video
-            src='https://videos.pexels.com/video-files/11571662/11571662-sd_360_640_25fps.mp4'
-            autoPlay
+            src='https://videos.pexels.com/video-files/6091108/6091108-sd_506_960_30fps.mp4'
+            autoPlay 
             loop
+            muted
             className='object-cover rounded-3xl w-full h-full'
           >
-
           </video>
         </div>
         <div className='col-span-2 row-span-2 rounded-3xl flex justify-center items-center bg-indigo-300'>
@@ -31,6 +31,7 @@ function Gallery() {
             src='https://videos.pexels.com/video-files/7015436/7015436-sd_360_640_25fps.mp4'
             autoPlay
             loop
+            muted
             className='object-cover rounded-3xl w-full h-full'
           >
 

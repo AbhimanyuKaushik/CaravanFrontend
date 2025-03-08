@@ -7,8 +7,8 @@ function FoodDisplay({ category }) {
   const context = useContext(StoreContext);
 
   if (!context) {
-    // Handle case where context is undefined
-    return null; // or render loading indicator, error message, etc.
+    
+    return null; 
   }
 
   const { food_list } = context;
