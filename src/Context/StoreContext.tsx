@@ -46,7 +46,7 @@ const StoreContextProvider = ({ children }: StoreContextProviderProps) => {
           { itemId },
           { headers: { Authorization: `Bearer ${token}` } }
         );
-      }  catch (error) {
+      } catch (error) {
         if (error instanceof AxiosError) {
           console.error('Error adding to cart:', error.response?.data || error.message);
         } else {
@@ -70,7 +70,11 @@ const StoreContextProvider = ({ children }: StoreContextProviderProps) => {
             { headers: { Authorization: `Bearer ${token}` } }
           );
         } catch (error) {
-          console.error('Error removing from cart:', error.response?.data || error.message);
+          if (error instanceof AxiosError) {
+            console.error('Error adding to cart:', error.response?.data || error.message);
+          } else {
+            console.error('An unexpected error occurred:', error);
+          }
         }
       }
     }
@@ -97,7 +101,11 @@ const StoreContextProvider = ({ children }: StoreContextProviderProps) => {
       setFoodList(response.data.data || []);
       console.log('Fetched food list:', response.data.data);
     } catch (error) {
-      console.error("Failed to fetch food list:", error.response?.data || error.message);
+      if (error instanceof AxiosError) {
+        console.error('Error adding to cart:', error.response?.data || error.message);
+      } else {
+        console.error('An unexpected error occurred:', error);
+      }
     }
   }, [url]);
 
@@ -111,7 +119,11 @@ const StoreContextProvider = ({ children }: StoreContextProviderProps) => {
       setCartItems(response.data.cartData || {});
       console.log('Loaded cart data:', response.data.cartData);
     } catch (error) {
-      console.error("Failed to load cart data:", error.response?.data || error.message);
+      if (error instanceof AxiosError) {
+        console.error('Error adding to cart:', error.response?.data || error.message);
+      } else {
+        console.error('An unexpected error occurred:', error);
+      }
     }
   }, [url]);
 
