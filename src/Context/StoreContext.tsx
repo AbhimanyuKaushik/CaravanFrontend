@@ -33,7 +33,7 @@ const StoreContextProvider = ({ children }: StoreContextProviderProps) => {
   const [cartItems, setCartItems] = useState<Record<string, number>>({});
   const [food_list, setFoodList] = useState<FoodItem[]>([]);
   const [token, setToken] = useState<string>('');
-  const url = "http://localhost:4000";
+  const url = "caravanbackend-production.up.railway.app";
 
   const addToCart = async (itemId: string) => {
     setCartItems(prev => ({
