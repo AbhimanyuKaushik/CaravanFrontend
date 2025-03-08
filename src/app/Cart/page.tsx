@@ -26,7 +26,7 @@ function CartPage() {
         {food_list.map((item, index) => {
           if (cartItems[item._id] > 0) {
             return (
-              <div>
+              <div key={item._id}>
                 <div className='cart-items-title cart-items-item'>
                   <Image
                     className='w-[50px]'
