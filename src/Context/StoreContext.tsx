@@ -1,12 +1,11 @@
-'use client'
-import { createContext, ReactNode, useEffect, useState } from 'react';
-import { StaticImageData } from 'next/image';
+'use client';
+import { createContext, ReactNode, useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 
 interface FoodItem {
   _id: string;
   name: string;
-  image: StaticImageData;
+  image: string;
   price: number;
   description: string;
   category: string;
@@ -74,31 +73,31 @@ const StoreContextProvider = ({ children }: StoreContextProviderProps) => {
   };
 
   const getTotalCartAmount = () => {
-    let totalAmount = 0;
-    for (const item in cartItems) {
-      if (cartItems[item] > 0) {
-        const itemInfo = food_list.find(product => product._id === item);
+    return Object.entries(cartItems).reduce((totalAmount, [itemId, quantity]) => {
+      if (quantity > 0) {
+        const itemInfo = food_list.find(product => product._id === itemId);
         if (itemInfo) {
-          totalAmount += itemInfo.price * cartItems[item];
+          totalAmount += itemInfo.price * quantity;
         }
       }
-    }
-    return totalAmount;
+      return totalAmount;
+    }, 0);
   };
 
-  const fetchFoodList = async () => {
+  const fetchFoodList = useCallback(async (token: string) => {
     try {
       const response = await axios.get(
         url + "/api/food/list",
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setFoodList(response.data.data || []);
+      console.log('Fetched food list:', response.data.data);
     } catch (error) {
       console.error("Failed to fetch food list:", error.response?.data || error.message);
     }
-  };
+  }, [url]);
 
-  const loadCartData = async (token: string) => {
+  const loadCartData = useCallback(async (token: string) => {
     try {
       const response = await axios.post(
         url + "/api/cart/get",
@@ -106,23 +105,24 @@ const StoreContextProvider = ({ children }: StoreContextProviderProps) => {
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setCartItems(response.data.cartData || {});
+      console.log('Loaded cart data:', response.data.cartData);
     } catch (error) {
       console.error("Failed to load cart data:", error.response?.data || error.message);
     }
-  };
+  }, [url]);
 
   useEffect(() => {
     async function loadData() {
-      const storedToken = localStorage.getItem("token") || '';
+      const storedToken = typeof window !== 'undefined' ? localStorage.getItem("token") || '' : '';
       console.log('Stored token:', storedToken); // Debug line
       setToken(storedToken);
       if (storedToken) {
-        await fetchFoodList();
+        await fetchFoodList(storedToken);
         await loadCartData(storedToken);
       }
     }
     loadData();
-  }, []);
+  }, [fetchFoodList, loadCartData]);
 
   const state: StoreContextType = {
     food_list,
