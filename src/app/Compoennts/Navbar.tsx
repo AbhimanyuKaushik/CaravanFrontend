@@ -14,7 +14,11 @@ import PersonIcon from '@mui/icons-material/Person';
 function Navbar() {
     const [menu, setMenu] = useState('home');
     const [showLogin, setShowLogin] = useState(false);
-    const { getTotalCartAmount, token, setToken } = useContext(StoreContext);
+    const context = useContext(StoreContext);
+    if (!context) {
+        throw new Error('StoreContext must be used within a StoreContextProvider');
+    }
+    const { getTotalCartAmount, token, setToken } = context;
 
     const logout = () => {
         localStorage.removeItem("token");
