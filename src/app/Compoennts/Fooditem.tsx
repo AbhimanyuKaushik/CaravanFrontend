@@ -15,7 +15,7 @@ interface FooditemProps {
 }
 
 // Functional component for rendering a food item
-function Fooditem({ id, name, price, description, image }: FooditemProps) {
+function Fooditem = memo(({ id, name, price, description, image }: FooditemProps) {
     const [itemCount, setItemCount] = useState(0); // Local state for managing item count if needed
     const context = useContext(StoreContext);
 
@@ -40,6 +40,7 @@ function Fooditem({ id, name, price, description, image }: FooditemProps) {
                     alt={name} // Alt text for accessibility
                     width={800}
                     height={500}
+                    priority
                 />
                 {!cartItems[id] ? (
                     // Display add icon if item not in cart
@@ -82,6 +83,6 @@ function Fooditem({ id, name, price, description, image }: FooditemProps) {
             </div>
         </div>
     );
-}
+});
 
 export default Fooditem; // Export Fooditem component
