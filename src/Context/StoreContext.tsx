@@ -22,7 +22,7 @@ interface StoreContextType {
   setToken: (token: string) => void;
 }
 
-export const StoreContext = createContext<StoreContextType | undefined>(undefined);
+export const StoreContext = createContext<StoreContextType | undefined>({} as StoreContextType);
 
 interface StoreContextProviderProps {
   children: ReactNode;
