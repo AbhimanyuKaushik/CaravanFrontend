@@ -4,7 +4,11 @@ import { StoreContext } from '@/Context/StoreContext';
 import axios from 'axios';
 
 function PlaceOrder() {
-    const { getTotalCartAmount, token, food_list, cartItems, url } = useContext(StoreContext);
+    const context = useContext(StoreContext);
+    if (!context) {
+        throw new Error('StoreContext must be used within a StoreContextProvider');
+    }
+    const { getTotalCartAmount, token, food_list, cartItems, url } = context;
 
     const [data, setData] = useState({
         firstName: "",
