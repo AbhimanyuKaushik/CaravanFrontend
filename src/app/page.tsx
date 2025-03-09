@@ -17,7 +17,7 @@ export default function Home() {
         <Landing />
         <Order />
         <ExploreMenu category={category} setCategory={setCategory} />
-        <FoodDisplay category={category} />
+        <FoodDisplay category={category}/>
         <AppDownload/>
       </div>
     </>

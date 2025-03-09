@@ -5,11 +5,6 @@ import Fooditem from './Fooditem';
 import '../globals.css'
 interface FoodDisplayProps {
   category: string;
-  id: string;
-  name: string;
-  price: number;
-  description: string;
-  image: string;
 }
 
 function FoodDisplay({ category }: FoodDisplayProps) {
