@@ -1,5 +1,5 @@
 // Import necessary modules and assets
-import React, { useContext, useState } from 'react';
+import React, { memo, useContext, useState } from 'react';
 import Image, { StaticImageData } from 'next/image';
 import { assets } from '../../../public/frontend_assets/assets'; // Adjust the path based on your project structure
 import '../globals.css'; // Assuming global styles are defined here
@@ -15,7 +15,7 @@ interface FooditemProps {
 }
 
 // Functional component for rendering a food item
-function Fooditem = memo(({ id, name, price, description, image }: FooditemProps) {
+const Fooditem = memo(({ id, name, price, description, image }: FooditemProps) => {
     const [itemCount, setItemCount] = useState(0); // Local state for managing item count if needed
     const context = useContext(StoreContext);
 
