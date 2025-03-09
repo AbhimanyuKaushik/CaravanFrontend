@@ -1,13 +1,31 @@
-'use client'
+'use client';
 import { StoreContext } from '@/Context/StoreContext';
 import axios from 'axios';
 import Image from 'next/image';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { assets } from '../../../public/frontend_assets/assets';
 
+interface OrderItem {
+  name: string;
+  quantity: string;
+}
+
+interface Order {
+  items: OrderItem[];
+  amount: number;
+  status: string;
+}
+
 function Page() {
-  const { url, token } = useContext(StoreContext);
-  const [data, setData] = useState<any[]>([]); // Use `any` for flexibility or define an appropriate type.
+  const context = useContext(StoreContext);
+
+  // Check if context is defined
+  if (!context) {
+    throw new Error('StoreContext must be used within a StoreContextProvider');
+  }
+
+  const { url, token } = context;
+  const [data, setData] = useState<Order[]>([]);
 
   const fetchOrders = useCallback(async () => {
     try {
@@ -22,7 +40,6 @@ function Page() {
       console.error('Error fetching orders:', error.response?.data || error.message);
     }
   }, [token, url]);
-
 
   useEffect(() => {
     if (token) {
@@ -43,7 +60,7 @@ function Page() {
               <Image src={assets.parcel_icon} alt='Parcel_icon' width={60} height={60} />
               <p>
                 {order.items
-                  .map((item: { name: string; quantity: string; }) => `${item.name}x${item.quantity}`)
+                  .map((item) => `${item.name}x${item.quantity}`)
                   .join(', ')}
               </p>
               <p>${order.amount}.00</p>

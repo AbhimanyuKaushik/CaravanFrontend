@@ -2,6 +2,12 @@
 import { createContext, ReactNode, useEffect, useState, useCallback } from 'react';
 import axios, { AxiosError } from 'axios';
 
+export const StoreContext = createContext<StoreContextType | undefined>(undefined);
+
+interface StoreContextProviderProps {
+  children: ReactNode;
+}
+
 interface FoodItem {
   _id: string;
   name: string;
@@ -22,11 +28,6 @@ interface StoreContextType {
   setToken: (token: string) => void;
 }
 
-export const StoreContext = createContext<StoreContextType | undefined>({} as StoreContextType);
-
-interface StoreContextProviderProps {
-  children: ReactNode;
-}
 
 const StoreContextProvider = ({ children }: StoreContextProviderProps) => {
   const [cartItems, setCartItems] = useState<Record<string, number>>({});
