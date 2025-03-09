@@ -11,7 +11,7 @@ interface FooditemProps {
     name: string;
     price: number;
     description: string;
-    image: StaticImageData; // Assuming image is a string representing the image path
+    image: string; // Assuming image is a string representing the image path
 }
 
 // Functional component for rendering a food item

@@ -3,12 +3,21 @@ import React, { useContext } from 'react';
 import { StoreContext } from '@/Context/StoreContext';
 import Fooditem from './Fooditem';
 import '../globals.css'
-function FoodDisplay({ category }) {
+interface FoodDisplayProps {
+  category: string;
+  id: string;
+  name: string;
+  price: number;
+  description: string;
+  image: string;
+}
+
+function FoodDisplay({ category }: FoodDisplayProps) {
   const context = useContext(StoreContext);
 
   if (!context) {
-    
-    return null; 
+
+    return null;
   }
 
   const { food_list } = context;
