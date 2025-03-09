@@ -17,7 +17,13 @@ interface FooditemProps {
 // Functional component for rendering a food item
 function Fooditem({ id, name, price, description, image }: FooditemProps) {
     const [itemCount, setItemCount] = useState(0); // Local state for managing item count if needed
-    const { url, cartItems, addToCart, removeFromCart } = useContext(StoreContext); // Accessing context values
+    const context = useContext(StoreContext);
+
+    // Check if context is defined
+    if (!context) {
+        throw new Error('StoreContext must be used within a StoreContextProvider');
+    }
+    const { url, cartItems, addToCart, removeFromCart } = context; // Accessing context values
 
     // Function to increase item count locally if needed
     const increaseItemCount = () => {
@@ -30,7 +36,7 @@ function Fooditem({ id, name, price, description, image }: FooditemProps) {
             <div className='relative'>
                 <Image
                     className='food-item-image object-contain w-full h-full'
-                    src={url+"/images/"+image}
+                    src={url + "/images/" + image}
                     alt={name} // Alt text for accessibility
                     width={800}
                     height={500}

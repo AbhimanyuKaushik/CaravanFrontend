@@ -1,20 +1,9 @@
 'use client';
 import { StoreContext } from '@/Context/StoreContext';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import Image from 'next/image';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { assets } from '../../../public/frontend_assets/assets';
-
-interface OrderItem {
-  name: string;
-  quantity: string;
-}
-
-interface Order {
-  items: OrderItem[];
-  amount: number;
-  status: string;
-}
 
 function Page() {
   const context = useContext(StoreContext);
@@ -25,7 +14,7 @@ function Page() {
   }
 
   const { url, token } = context;
-  const [data, setData] = useState<Order[]>([]);
+  const [data, setData] = useState<any[]>([]); // Use `any` for flexibility or define an appropriate type.
 
   const fetchOrders = useCallback(async () => {
     try {
@@ -37,7 +26,11 @@ function Page() {
       console.log('API Response:', response.data);
       setData(response.data.data || []);
     } catch (error) {
-      console.error('Error fetching orders:', error.response?.data || error.message);
+      if (error instanceof AxiosError) {
+        console.error('Error adding to cart:', error.response?.data || error.message);
+      } else {
+        console.error('An unexpected error occurred:', error);
+      }
     }
   }, [token, url]);
 
@@ -60,7 +53,7 @@ function Page() {
               <Image src={assets.parcel_icon} alt='Parcel_icon' width={60} height={60} />
               <p>
                 {order.items
-                  .map((item) => `${item.name}x${item.quantity}`)
+                  .map((item: { name: string; quantity: string; }) => `${item.name}x${item.quantity}`)
                   .join(', ')}
               </p>
               <p>${order.amount}.00</p>

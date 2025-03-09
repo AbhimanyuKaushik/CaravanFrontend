@@ -6,7 +6,13 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 function CartPage() {
-  const { url,cartItems, food_list, removeFromCart, getTotalCartAmount } = useContext(StoreContext)
+  const context = useContext(StoreContext);
+  
+    // Check if context is defined
+    if (!context) {
+      throw new Error('StoreContext must be used within a StoreContextProvider');
+    }
+  const { url,cartItems, food_list, removeFromCart, getTotalCartAmount } = context
 
 
   return (

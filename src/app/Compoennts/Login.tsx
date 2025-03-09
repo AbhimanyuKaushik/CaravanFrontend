@@ -12,8 +12,13 @@ const Login: React.FC<LoginProps> = ({ setShowLogin }) => {
     const handleClose = () => {
         setShowLogin(false);
     };
+    const context = useContext(StoreContext);
 
-    const { url, setToken } = useContext(StoreContext);
+    // Check if context is defined
+    if (!context) {
+        throw new Error('StoreContext must be used within a StoreContextProvider');
+    }
+    const { url, setToken } = context;
 
     const [currState, setCurrState] = useState('Login');
     const [data, setData] = useState({
@@ -47,8 +52,8 @@ const Login: React.FC<LoginProps> = ({ setShowLogin }) => {
                 alert(response.data.message);
             }
         } catch (error) {
-            console.error("Error:", error); 
-            
+            console.error("Error:", error);
+
             alert("An error occurred while processing your request.");
         }
     };
