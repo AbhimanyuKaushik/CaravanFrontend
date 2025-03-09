@@ -4,10 +4,14 @@ import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 
 const Page = () => {
-    const [success, setSuccess] = useState(null);
-    const [orderID, setOrderID] = useState(null);
+    const [success, setSuccess] = useState<string | null>(null);
+    const [orderID, setOrderID] = useState<string | null>(null);
 
-    const { url } = useContext(StoreContext);
+    const context = useContext(StoreContext);
+    if (!context) {
+        throw new Error('StoreContext must be used within a StoreContextProvider');
+    }
+    const { url } = context;
 
     useEffect(() => {
         const params = new URLSearchParams(window.location.search);
