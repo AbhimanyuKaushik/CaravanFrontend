@@ -1,49 +1,43 @@
-// Import necessary modules and assets
 import React, { memo, useContext, useState } from 'react';
-import Image, { StaticImageData } from 'next/image';
-import { assets } from '../../../public/frontend_assets/assets'; // Adjust the path based on your project structure
-import '../globals.css'; // Assuming global styles are defined here
-import { StoreContext } from '@/Context/StoreContext'; // Adjust the context import path as per your project structure
+import Image from 'next/image';
+import { assets } from '../../../public/frontend_assets/assets';
+import '../globals.css';
+import { StoreContext } from '@/Context/StoreContext';
 
-// Define props interface for Fooditem component
 interface FooditemProps {
     id: string;
     name: string;
     price: number;
     description: string;
-    image: string; // Assuming image is a string representing the image path
+    image: string;
 }
 
-// Functional component for rendering a food item
 const Fooditem = memo(({ id, name, price, description, image }: FooditemProps) => {
-    const [itemCount, setItemCount] = useState(0); // Local state for managing item count if needed
+    const [itemCount, setItemCount] = useState(0);
     const context = useContext(StoreContext);
 
-    // Check if context is defined
     if (!context) {
         throw new Error('StoreContext must be used within a StoreContextProvider');
     }
-    const { url, cartItems, addToCart, removeFromCart } = context; // Accessing context values
 
-    // Function to increase item count locally if needed
+    const { url, cartItems, addToCart, removeFromCart } = context;
+
     const increaseItemCount = () => {
         setItemCount(prevCount => prevCount + 1);
     };
 
-    // Render JSX for food item component
     return (
         <div className='food-item'>
             <div className='relative'>
                 <Image
                     className='food-item-image object-contain w-full h-full'
                     src={url + "/images/" + image}
-                    alt={name} // Alt text for accessibility
+                    alt={name}
                     width={800}
                     height={500}
                     priority
                 />
                 {!cartItems[id] ? (
-                    // Display add icon if item not in cart
                     <Image
                         className='w-[35px] cursor-pointer absolute bottom-[15px] right-[15px] rounded-[50%]'
                         onClick={() => addToCart(id)}
@@ -51,7 +45,6 @@ const Fooditem = memo(({ id, name, price, description, image }: FooditemProps) =
                         alt='Add icon'
                     />
                 ) : (
-                    // Display item count and controls if item in cart
                     <div className='absolute bottom-[15px] right-[15px] flex items-center gap-[10px] p-[6px] rounded-[50px] bg-white'>
                         <Image
                             className='w-[30px] cursor-pointer'
@@ -85,4 +78,6 @@ const Fooditem = memo(({ id, name, price, description, image }: FooditemProps) =
     );
 });
 
-export default Fooditem; // Export Fooditem component
+Fooditem.displayName = 'Fooditem'; // Add this line
+
+export default Fooditem;

@@ -34,7 +34,6 @@ const StoreContextProvider = ({ children }: StoreContextProviderProps) => {
   const [food_list, setFoodList] = useState<FoodItem[]>([]);
   const [token, setToken] = useState<string>('');
   const url = "https://caravanbackend-c95x.onrender.com";
-
   const addToCart = async (itemId: string) => {
     setCartItems(prev => ({
       ...prev,
