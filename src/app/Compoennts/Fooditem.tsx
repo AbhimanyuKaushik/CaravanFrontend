@@ -1,4 +1,4 @@
-import React, { memo, useContext, useState } from 'react';
+import React, { memo, useContext } from 'react';
 import Image from 'next/image';
 import { assets } from '../../../public/frontend_assets/assets';
 import '../globals.css';
@@ -13,7 +13,6 @@ interface FooditemProps {
 }
 
 const Fooditem = memo(({ id, name, price, description, image }: FooditemProps) => {
-    const [itemCount, setItemCount] = useState(0);
     const context = useContext(StoreContext);
 
     if (!context) {
@@ -22,62 +21,61 @@ const Fooditem = memo(({ id, name, price, description, image }: FooditemProps) =
 
     const { url, cartItems, addToCart, removeFromCart } = context;
 
-    const increaseItemCount = () => {
-        setItemCount(prevCount => prevCount + 1);
-    };
-
     return (
-        <div className='food-item'>
-            <div className='relative'>
+        <div className="food-item bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col h-full w-64 flex-shrink-0">
+            {/* Image Container */}
+            <div className="relative h-48 w-full">
                 <Image
-                    className='food-item-image object-contain w-full h-full'
+                    className="object-cover w-full h-full"
                     src={url + "/images/" + image}
                     alt={name}
-                    width={800}
-                    height={500}
+                    width={300}
+                    height={200}
                     priority
                 />
+                {/* Add/Remove Cart Buttons */}
                 {!cartItems[id] ? (
                     <Image
-                        className='w-[35px] cursor-pointer absolute bottom-[15px] right-[15px] rounded-[50%]'
+                        className="w-8 h-8 cursor-pointer absolute bottom-4 right-4 rounded-full"
                         onClick={() => addToCart(id)}
                         src={assets.add_icon_white}
-                        alt='Add icon'
+                        alt="Add icon"
                     />
                 ) : (
-                    <div className='absolute bottom-[15px] right-[15px] flex items-center gap-[10px] p-[6px] rounded-[50px] bg-white'>
+                    <div className="absolute bottom-4 right-4 flex items-center gap-2 p-2 rounded-full bg-white">
                         <Image
-                            className='w-[30px] cursor-pointer'
+                            className="w-6 h-6 cursor-pointer"
                             onClick={() => removeFromCart(id)}
                             src={assets.remove_icon_red}
-                            alt='Remove icon'
+                            alt="Remove icon"
                         />
                         <p>{cartItems[id]}</p>
                         <Image
-                            className='w-[30px] cursor-pointer'
+                            className="w-6 h-6 cursor-pointer"
                             onClick={() => addToCart(id)}
                             src={assets.add_icon_green}
-                            alt='Add icon'
+                            alt="Add icon"
                         />
                     </div>
                 )}
             </div>
-            <div className='p-[20px]'>
-                <div className='flex justify-between items-center mb-[10px]'>
-                    <p className='item-name'>{name}</p>
+
+            {/* Content Container */}
+            <div className="p-4 flex flex-col flex-grow">
+                <div className="flex justify-between items-center mb-2">
+                    <p className="font-semibold text-lg">{name}</p>
                     <Image
-                        className='w-[70px]'
+                        className="w-16"
                         src={assets.rating_starts}
-                        alt='Rating stars'
+                        alt="Rating stars"
                     />
                 </div>
-                <p className='text-[#676767] text-[12px]'>{description}</p>
-                <p className='food-item-price'>${price}</p>
+                <p className="text-gray-600 text-sm mb-2">{description}</p>
+                <p className="text-yellow-500 font-semibold">${price}</p>
             </div>
         </div>
     );
 });
 
-Fooditem.displayName = 'Fooditem'; // Add this line
-
+Fooditem.displayName = 'Fooditem';
 export default Fooditem;

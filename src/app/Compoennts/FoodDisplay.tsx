@@ -19,8 +19,7 @@ function FoodDisplay({ category }: FoodDisplayProps) {
 
   return (
     <div className=' px-32' id='food-display'>
-      <h2 className='text-black text-[2rem]'>Top dishes near you</h2>
-      <div className='menu-display grid py-10 grid-cols-4 mt-[30px] gap-[30px] gap-y-[50px]'>
+      <div className='menu-display grid py-20 grid-cols-4 mt-[30px] gap-[30px] gap-y-[50px]'>
         {food_list.map((item) => {
           if (category === 'All' || category === item.category) {
             return (
@@ -34,7 +33,7 @@ function FoodDisplay({ category }: FoodDisplayProps) {
               />
             );
           }
-          return null; // Render nothing if the category does not match
+          return null;
         })}
       </div>
     </div>

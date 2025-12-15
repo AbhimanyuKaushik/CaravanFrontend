@@ -6,10 +6,9 @@ import ExploreMenu from "./Compoennts/ExploreMenu";
 import { useState } from "react";
 import FoodDisplay from "./Compoennts/FoodDisplay";
 import Footer from "./Compoennts/Footer";
-import AppDownload from "./Compoennts/AppDownload";
 
 export default function Home() {
-  const [category, setCategory] = useState("All");
+  const [category, setCategory] = useState("Salad");
 
   return (
     <>
@@ -18,7 +17,6 @@ export default function Home() {
         <Order />
         <ExploreMenu category={category} setCategory={setCategory} />
         <FoodDisplay category={category}/>
-        <AppDownload/>
       </div>
     </>
   );

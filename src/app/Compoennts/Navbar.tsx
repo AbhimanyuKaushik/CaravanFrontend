@@ -41,10 +41,12 @@ function Navbar() {
                     <ScrollLink to='explore-menu' smooth={true} duration={500}>
                         <li onClick={() => setMenu("menu")} className={menu === "menu" ? "active" : ""}>menu</li>
                     </ScrollLink>
-                    <ScrollLink to='app-download'>
+                    {/* <ScrollLink to='app-download'>
                         <li onClick={() => setMenu("mobile-app")} className={menu === "mobile-app" ? "active" : ""}>mobile-app</li>
-                    </ScrollLink>
-                    <li onClick={() => setMenu("contact-us")} className={menu === "contact-us" ? "active" : ""}>contact us</li>
+                    </ScrollLink> */}
+                    <NextLink href='/ContactUs'>
+                        <li onClick={() => setMenu("contact-us")} className={menu === "contact-us" ? "active" : ""}>contact us</li>
+                    </NextLink>
                 </ul>
                 <div className='navbar-right w-[270px] max-w-fit flex flex-row mr-28 gap-[40px]'>
                     <div className='search'>
